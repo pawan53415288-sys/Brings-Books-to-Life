@@ -9,6 +9,7 @@ Needs a free Groq API key as GROQ_API_KEY (see .env.example).
 from __future__ import annotations
 
 import os
+import streamlit as st
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -36,7 +37,8 @@ MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 # a long run; the Groq SDK honours the retry-after header, so raising this simply
 # waits out the window instead of failing the whole run.
 def _llm(temperature: float = 0.3) -> ChatGroq:
-    api_key = os.getenv("GROQ_API_KEY")
+    # api_key = os.getenv("GROQ_API_KEY")
+     api_key = st.secrets["GROQ_API_KEY"]
     if not api_key:
         raise RuntimeError(
             "GROQ_API_KEY is not set. Copy .env.example to .env, add your key "
